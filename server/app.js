@@ -11,20 +11,23 @@ app.use(cors());
 
 //Connect to the mongodb database
 
-const uri = "mongodb+srv://habeebcycle:secret101@graph-ql-xihwd.mongodb.net/node-graphql";
+const uri =
+	"mongodb+srv://habeebcycle:secret101@graph-ql-xihwd.mongodb.net/node-graphql?retryWrites=true&w=majority";
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.once('open', (err) => {
-    if(err) console.log(err);
-    console.log('connected to database');
+mongoose.connection.once("open", err => {
+	if (err) console.log(err);
+	console.log("connected to database");
 });
 
-
-app.use('/graphql', graphqlHTTP({
-    schema,
-    graphiql: true
-}));
+app.use(
+	"/graphql",
+	graphqlHTTP({
+		schema,
+		graphiql: true
+	})
+);
 
 app.listen(4000, () => {
-    console.log('Now listening for requests on port 4000');
-})
+	console.log("Now listening for requests on port 4000");
+});
